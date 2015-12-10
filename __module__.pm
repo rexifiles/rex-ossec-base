@@ -24,11 +24,11 @@ task 'setup', sub {
 	unless ( is_installed("ossec-hids-agent") ) {
 
 		repository "add" => "ossec",
-		url      => "http://ossec.wazuh.com/repos/apt/debian",
-		key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
-		distro    => "wheezy",
-		repository => "main",
-		source    => 1;
+			url      => "http://ossec.wazuh.com/repos/apt/debian",
+			key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
+			distro    => "wheezy",
+			repository => "main",
+			source    => 1;
 
 		delete_lines_matching "/etc/apt/sources.list.d/ossec.list" => "deb-src";
 
@@ -39,12 +39,14 @@ task 'setup', sub {
 			on_change => sub { say "package was installed/updated"; };
 
 		set_pkgconf("ossec-hids-agent", [
-				{ question => 'server-ip', type => 'string', value => $server },
+			{ question => 'ossec-hids-agent/server-ip', type => 'string', value => "${server}" },
  		]);
 		
 		file "/var/ossec/etc/client.keys",
 			content      => template("files/var/ossec/etc/clientkeys.tpl"),
 			no_overwrite => TRUE;
+
+		service ossec => "restart";
 		
  	};
 
