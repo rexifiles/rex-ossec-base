@@ -16,8 +16,6 @@ task 'setup', sub {
 		exit 1;
 	};
 
-	say $key;
-
 	unless ($server) {
 		say "No server defined. Define server=10.10.10.10";
 		exit 1;
@@ -47,8 +45,7 @@ task 'setup', sub {
 			on_change => sub { say "package was installed/updated"; };
 
 		file "/var/ossec/etc/client.keys",
-			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" }),
-			no_overwrite => TRUE;
+			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" });
 
 		service ossec => "restart";
 		
