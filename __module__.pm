@@ -45,7 +45,7 @@ task 'setup', sub {
  		# ]);
 		
 		file "/var/ossec/etc/client.keys",
-			content      => template("files/var/ossec/etc/clientkeys.tpl", key => $key),
+			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { "$key" }),
 			no_overwrite => TRUE;
 
 		service ossec => "restart";
