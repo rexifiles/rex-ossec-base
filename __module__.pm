@@ -30,6 +30,10 @@ task 'setup', sub {
 		repository => "main",
 		source    => 1;
 
+		delete_lines_matching "/etc/apt/sources.list.d/ossec.list" => "deb-src";
+
+		update_package_db;
+
 		pkg "ossec-hids-agent",
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
