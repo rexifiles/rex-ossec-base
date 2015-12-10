@@ -1,4 +1,4 @@
-package Rex::Base::Ossec; 
+package Rex::Ossec::Base; 
 use Rex -base;
 use Rex::Ext::ParamLookup;
 
