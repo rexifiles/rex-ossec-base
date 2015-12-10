@@ -34,11 +34,12 @@ task 'setup', sub {
 
 		update_package_db;
 
+		run qq!debconf ossec-hids-agent/server-ip string ${server}!;
+
 		pkg "ossec-hids-agent",
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
 
-		run qq!debconf ossec-hids-agent/server-ip string ${server}!;
 
 		# set_pkgconf("ossec-hids-agent", [
 			# { question => 'ossec-hids-agent/server-ip', type => 'string', value => "${server}" },
