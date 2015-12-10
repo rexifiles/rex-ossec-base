@@ -24,7 +24,7 @@ task 'setup', sub {
 	unless ( is_installed("ossec-hids-agent") ) {
 
 		repository "add" => "ossec",
-		url      => "http://http://ossec.wazuh.com/repos/apt/debian",
+		url      => "http://ossec.wazuh.com/repos/apt/debian",
 		key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
 		distro    => "wheezy",
 		repository => "main",
