@@ -16,6 +16,8 @@ task 'setup', sub {
 		exit 1;
 	};
 
+	say $key;
+
 	unless ($server) {
 		say "No server defined. Define server=10.10.10.10";
 		exit 1;
@@ -34,17 +36,16 @@ task 'setup', sub {
 
 		update_package_db;
 
-		run qq!debconf ossec-hids-agent/server-ip text ${server}!;
-
-		pkg "ossec-hids-agent",
-			ensure    => "latest",
-			on_change => sub { say "package was installed/updated"; };
-
+		run qq!echo ossec-hids-agent ossec-hids-agent/ip-server string ${server} | debconf-set-selections!;
 
 		# set_pkgconf("ossec-hids-agent", [
 			# { question => 'ossec-hids-agent/server-ip', type => 'string', value => "${server}" },
  		# ]);
 		
+		pkg "ossec-hids-agent",
+			ensure    => "latest",
+			on_change => sub { say "package was installed/updated"; };
+
 		file "/var/ossec/etc/client.keys",
 			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" }),
 			no_overwrite => TRUE;
