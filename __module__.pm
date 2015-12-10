@@ -30,13 +30,13 @@ task 'setup', sub {
 		repository => "main",
 		source    => 1;
 
+		pkg "ossec-hids-agent",
+			ensure    => "latest",
+			on_change => sub { say "package was installed/updated"; };
+
 		set_pkgconf("ossec-hids-agent", [
 				{ question => 'server-ip', type => 'string', value => $server },
  		]);
-
-		pkg "httpd",
-			ensure    => "latest",
-			on_change => sub { say "package was installed/updated"; };
 		
 		file "/var/ossec/etc/client.keys",
 			content      => template("files/var/ossec/etc/clientkeys.tpl"),
