@@ -1,0 +1,16 @@
+use Rex -feature => ['1.0'];
+use Rex::Ext::ParamLookup;
+
+include qw/
+  Rex::Ossec::Base
+  /;
+
+set connection => 'OpenSSH';
+user 'root';
+
+task "setup", make {
+
+  Rex::Ossec::Base::setup(server=>"10.10.10.10", key="KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY");
+
+};
+

@@ -1,0 +1,6 @@
+Name: Rex::Base::Ossec
+Description: Installs the ossec package, and configures to a server
+Author: xarlos <xarlos@xarlos.me>
+License: Apache 2.0
+Require:
+  - Rex::Ext::ParamLookup
