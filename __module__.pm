@@ -11,15 +11,15 @@ task 'setup', sub {
 	my $server = param_lookup "server";
 	my $key    = param_lookup "key";
 
-	unless ($key) {
-		say "No key defined. Define key=KEYKEYKEYKEYKEYKEYKEYKEYKEY";
-		exit 1;
-	};
+	# unless ($key) {
+		# say "No key defined. Define key=KEYKEYKEYKEYKEYKEYKEYKEYKEY";
+		# exit 1;
+	# };
 
-	unless ($server) {
-		say "No server defined. Define server=10.10.10.10";
-		exit 1;
-	};
+	# unless ($server) {
+		# say "No server defined. Define server=10.10.10.10";
+		# exit 1;
+	# };
 
 	unless ( is_installed("ossec-hids-agent") ) {
 
