@@ -38,9 +38,11 @@ task 'setup', sub {
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
 
-		set_pkgconf("ossec-hids-agent", [
-			{ question => 'ossec-hids-agent/server-ip', type => 'string', value => "${server}" },
- 		]);
+		run qq!debconf ossec-hids-agent/server-ip string ${server}!;
+
+		# set_pkgconf("ossec-hids-agent", [
+			# { question => 'ossec-hids-agent/server-ip', type => 'string', value => "${server}" },
+ 		# ]);
 		
 		file "/var/ossec/etc/client.keys",
 			content      => template("files/var/ossec/etc/clientkeys.tpl"),
