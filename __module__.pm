@@ -25,7 +25,7 @@ task 'setup', sub {
 
 		repository "add" => "ossec",
 		url      => "http://http://ossec.wazuh.com/repos/apt/debian",
-		key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key"
+		key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
 		distro    => "wheezy",
 		repository => "main",
 		source    => 1;
