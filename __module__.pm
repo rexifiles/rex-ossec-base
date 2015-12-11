@@ -5,6 +5,9 @@ use Rex::Ext::ParamLookup;
 # Usage: rex setup server=192.1.2.3 key=MDAxITBSI4IRFLVJDIhhcmxvcy5tZSAxOTIuMTY4LjEwLjIssdsd32ddcckyMjhmNWNjZjAzMWIzMzFmMjUzZDcyMzY2MTY3NDEyNWU2NzlmNmI2N2VmNTBhY2E4MDAxZDIxMw==
 # Usage: rex remove
 
+# The key should be taken from the client.keys file upon deployment. (not the exported key via the manager)
+
+
 desc 'Set up ossec agent';
 task 'setup', sub { 
 
@@ -44,9 +47,10 @@ task 'setup', sub {
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
 
-		file "/var/ossec/etc/client.keys",
-			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" });
+		run qq!/var/ossec/bin/manage_agents -i ${key}!;
 
+		# file "/var/ossec/etc/client.keys",
+			# content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" });
 		service ossec => "restart";
 		
  	};
