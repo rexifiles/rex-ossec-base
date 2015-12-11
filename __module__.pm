@@ -2,7 +2,7 @@ package Rex::Ossec::Base;
 use Rex -base;
 use Rex::Ext::ParamLookup;
 
-# Usage: rex setup server=192.1.2.3 key=MDAxIHJ0bTIud2ViLnhhcmxvcy5tZSAxOTIuMTY4LjEwLjIgZTAzZjJkNTkyMjhmNWNjZjAzMWIzMzFmMjUzZDcyMzY2MTY3NDEyNWU2NzlmNmI2N2VmNTBhY2E4MDAxZDIxMw==
+# Usage: rex setup server=192.1.2.3 key=MDAxITBSI4IRFLVJDIhhcmxvcy5tZSAxOTIuMTY4LjEwLjIssdsd32ddcckyMjhmNWNjZjAzMWIzMzFmMjUzZDcyMzY2MTY3NDEyNWU2NzlmNmI2N2VmNTBhY2E4MDAxZDIxMw==
 # Usage: rex remove
 
 desc 'Set up ossec agent';
@@ -26,7 +26,7 @@ task 'setup', sub {
 		repository "add" => "ossec",
 			url      => "http://ossec.wazuh.com/repos/apt/debian",
 			key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
-			distro    => "wheezy",
+			distro    => "jessie",
 			repository => "main",
 			source    => 1;
 
