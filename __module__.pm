@@ -47,10 +47,8 @@ task 'setup', sub {
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
 
-		run qq!/var/ossec/bin/manage_agents -i ${key}!;
-
-		# file "/var/ossec/etc/client.keys",
-			# content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" });
+		file "/var/ossec/etc/client.keys",
+			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" });
 		service ossec => "restart";
 		
  	};
