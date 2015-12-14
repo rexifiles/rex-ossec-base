@@ -33,9 +33,9 @@ task 'setup', sub {
 
 		# update_package_db; <--- removed, cos it's not there currently. 
 
-		pkg "ossec-hids-agent",
-			ensure    => "installed",
-			on_change => sub { say "package was installed/updated"; };
+		# pkg "ossec-hids-agent",
+			# ensure    => "installed",
+			# on_change => sub { say "package was installed/updated"; };
 
 		run qq!echo ossec-hids-agent ossec-hids-agent/ip-server string ${server} | debconf-set-selections!;
 		run qq!dpkg -i --force-yes /var/cache/apt/archives/ossec-hids-agent_2.8.3-3jessie_amd64.deb!;
