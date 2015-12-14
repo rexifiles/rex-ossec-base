@@ -46,7 +46,6 @@ task 'setup', sub {
 desc 'Remove ossec agent';
 task 'remove', sub {
 
-	pkg "ossec-hids-agent",
-		ensure => "absent";
+	remove package => "ossec-hids-agent";
 
 }
