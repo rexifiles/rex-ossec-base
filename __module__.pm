@@ -37,6 +37,7 @@ task 'setup', sub {
 			ensure    => "installed",
 			on_change => sub { say "package was installed/updated"; };
 
+		run qq!dpkg -i /var/cache/apt/archives/ossec-hids-agent_2.8.3-3jessie_amd64.deb!;
 		run qq!/var/ossec/bin/agent-auth -m ${server} -A $(hostname -f)!;
 
 		service ossec => "restart";
