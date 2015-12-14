@@ -10,7 +10,8 @@ user 'root';
 
 task "setup", make {
 
-  Rex::Ossec::Base::setup(server=>"10.10.10.10", key="KEYKEYKEYKEYKEYKEYKEYKEYKEYKEYKEY");
+  Rex::Ossec::Base::clean();
+  Rex::Ossec::Base::setup(server=>"10.10.10.10");
 
 };
 
