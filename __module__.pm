@@ -35,7 +35,7 @@ task 'setup', sub {
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
 
-		run qq!/var/ossec/bin/agent-auth -m ${server} -A $(hostname -f)!;
+		run qq!/var/ossec/bin/agent-auth -m $server -A `hostname -f`!;
 
 		service ossec => "restart";
  	};
