@@ -2,22 +2,16 @@ package Rex::Ossec::Base;
 use Rex -base;
 use Rex::Ext::ParamLookup;
 
-# Usage: rex setup server=192.1.2.3 key=MDAxITBSI4IRFLVJDIhhcmxvcy5tZSAxOTIuMTY4LjEwLjIssdsd32ddcckyMjhmNWNjZjAzMWIzMzFmMjUzZDcyMzY2MTY3NDEyNWU2NzlmNmI2N2VmNTBhY2E4MDAxZDIxMw==
+# Usage: rex setup server=192.1.2.3
 # Usage: rex remove
 
-# The key should be taken from the client.keys file upon deployment. (not the exported key via the manager)
+# Changed this deployment to use agent-auth
 
 
 desc 'Set up ossec agent';
 task 'setup', sub { 
 
 	my $server = param_lookup "server";
-	my $key    = param_lookup "key";
-
-	unless ($key) {
-	 	say "No key defined. Define key=KEYKEYKEYKEYKEYKEYKEYKEYKEY";
-		exit 1;
-	};
 
 	unless ($server) {
 		say "No server defined. Define server=10.10.10.10";
@@ -37,20 +31,13 @@ task 'setup', sub {
 
 		update_package_db;
 
-		run qq!echo ossec-hids-agent ossec-hids-agent/ip-server string ${server} | debconf-set-selections!;
-
-		# set_pkgconf("ossec-hids-agent", [
-			# { question => 'ossec-hids-agent/server-ip', type => 'string', value => "${server}" },
- 		# ]);
-		
 		pkg "ossec-hids-agent",
 			ensure    => "latest",
 			on_change => sub { say "package was installed/updated"; };
 
-		file "/var/ossec/etc/client.keys",
-			content      => template("files/var/ossec/etc/clientkeys.tpl", conf => { key => "$key" });
+		run qq!/var/ossec/bin/agent-auth -m ${server} -A $(hostname -f)!;
+
 		service ossec => "restart";
-		
  	};
 
 	service ossec => ensure => "started";
