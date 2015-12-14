@@ -25,9 +25,9 @@ task 'setup', sub {
 			key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
 			distro    => "jessie",
 			repository => "main",
-			source    => 1;
+			source    => 0;
 
-		delete_lines_matching "/etc/apt/sources.list.d/ossec.list" => "deb-src";
+		# delete_lines_matching "/etc/apt/sources.list.d/ossec.list" => "deb-src";
 
 		update_package_db;
 
@@ -49,8 +49,8 @@ task 'clean', sub {
 	if ( is_installed("ossec-hids-agent") ) {
 		service ossec => "stopped";
 		remove package => "ossec-hids-agent";
+		repository remove => "ossec";
 	};
-
 
 
 }
