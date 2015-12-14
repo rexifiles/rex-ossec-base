@@ -22,7 +22,7 @@ task 'setup', sub {
 
 	unless ( is_installed("ossec-hids-agent") ) {
 
-		run qq!echo ossec-hids-agent ossec-hids-agent/ip-server string ${server} | debconf-set-selections!;
+		run qq!echo ossec-hids-agent ossec-hids-agent/server-ip string ${server} | debconf-set-selections!;
 		run qq!dpkg -i /var/cache/apt/archives/ossec-hids-agent_2.8.3-3jessie_amd64.deb!;
 		run qq!/var/ossec/bin/agent-auth -m $server -A `hostname -f`!;
 
