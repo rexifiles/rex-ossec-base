@@ -44,8 +44,13 @@ task 'setup', sub {
 };
 
 desc 'Remove ossec agent';
-task 'remove', sub {
+task 'clean', sub {
 
-	remove package => "ossec-hids-agent";
+	if ( is_installed("ossec-hids-agent") ) {
+		service ossec => "stopped";
+		remove package => "ossec-hids-agent";
+	};
+
+
 
 }
