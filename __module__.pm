@@ -18,21 +18,23 @@ task 'setup', sub {
 		exit 1;
 	};
 
+	
+
 	unless ( is_installed("ossec-hids-agent") ) {
 
-		repository "add" => "ossec",
-			url      => "http://ossec.wazuh.com/repos/apt/debian",
-			key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
-			distro    => "jessie",
-			repository => "main",
-			source    => 0;
+		# repository "add" => "ossec",
+			# url      => "http://ossec.wazuh.com/repos/apt/debian",
+			# key_url  => "http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key",
+			# distro    => "jessie",
+			# repository => "main",
+			# source    => 0;
 
 		# delete_lines_matching "/etc/apt/sources.list.d/ossec.list" => "deb-src";
 
-		update_package_db;
+		# update_package_db; <--- removed, cos it's not there currently. 
 
 		pkg "ossec-hids-agent",
-			ensure    => "latest",
+			ensure    => "installed",
 			on_change => sub { say "package was installed/updated"; };
 
 		run qq!/var/ossec/bin/agent-auth -m ${server} -A $(hostname -f)!;
